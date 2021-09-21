@@ -1,5 +1,4 @@
 <!-- PHP failis vöib olla ka HTML, kuid failil endal peab alati olema .php laiend -->
-<!-- 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 -->
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
 $author_name = "Karl"; #PHP lause peab löppema semikooloniga
 //juhusliku foto lisamine
@@ -19,10 +18,32 @@ foreach($real_files as $file_name) {
 	}
 } */
 
+//suvalise foto valimine
+
 $limit = count($real_files);
 $pic_nr = mt_rand(0, $limit - 1);
 $ran_picture = $real_files[$pic_nr];
 $photo_html = '<img src="' .$photo_dir .$ran_picture . '" alt="Pilt" width="500">';
+
+//fotode list
+
+$photo_list_html = "<ul>";
+	for($i = 0; $i < $limit; $i++ ) //for funktsionis sulgudes (algväärtus, max väärtus, mitme vörra liidetakse)
+	{$photo_list_html .= "<li>".$real_files[$i]."</li>";
+	}
+	$photo_list_html .= "</ul>";
+
+//fotode valik
+
+
+
+//fotode valikumenüü
+
+$photo_select_html = "\n".'<select name="photo_select">'."\n";
+	for($i = 0; $i < $limit; $i++ )
+ 	{$photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
+	}
+	$photo_select_html .= "</select>";
 ?>
 <!DOCTYPE html> <!-- Vajalik HTML osa alguses -->
 <html lang="et">
@@ -68,7 +89,6 @@ $todays_opinion_error = null;
 if(isset($_POST["submit_opinion"]))
 { if(!empty($_POST["user_opinion"]))
 	{
-	//echo "Päeva arvamus antud!";
 	$todays_opinion_html = "<p>Tänane päev on ".$_POST["user_opinion"].".</p>";
 	$todays_opinion = $_POST["user_opinion"];
 	}
@@ -80,28 +100,15 @@ if(isset($_POST["submit_opinion"]))
 ?>
 	<h1><center><img src="banana.gif" alt="tantsiv banaan" width=100></img> <?php echo $author_name;?>i veebileht <img src="banana.gif" alt="tantsiv banaan" width=100></img></center></h1>
 	<h2><center>Graphic design is my passion</center></h2>
-	<?php $photo_list_html = "<ul>";
-	for($i = 0; $i < $limit; $i++ ) //for funktsionis sulgudes (algväärtus, max väärtus, mitme vörra liidetakse)
-	{$photo_list_html .= "<li>".$real_files[$i]."</li>";
-	}
-	$photo_list_html .= "</ul>";
-	?>
 	<?php echo $photo_html; 
-	echo $photo_list_html;?>
-	<?php $photo_select_html = "\n".'<select_name="photo_select">'."\n";
-	for($i = 0; $i < $limit; $i++ ) //for funktsionis sulgudes (algväärtus, max väärtus, mitme vörra liidetakse)
-	{$photo_select_html .= '<option_value="' .$i .'">' .$real_files[$i];
-	}
-	$photo_select_html .= "</ul>";
-	?>
-	<hr>
-	<form method="POST">
-	<?php echo $photo_select_html ?>
-	</form>
+	echo $photo_list_html;
+	echo $photo_select_html; ?>
 	<form method="post"> <!-- vormielement -->
-	<input type="text" name="user_opinion" placeholder="Mida arvate tänasest päevast?" value= <?php $user_opinion; ?> >
-	<input type="submit" name="submit_opinion" value="Saada">
-	<span><?php echo $todays_opinion_error; ?></span>
+	<input type="submit" name="submit_picture" value="Vali pilt">
+		<hr>
+		<input type="text" name="user_opinion" placeholder="Mida arvate tänasest päevast?" value="<?php echo $todays_opinion; ?>">
+		<input type="submit" name="submit_opinion" value="Saada">
+		<span><?php echo $todays_opinion_error; ?></span>
 	</form>
 	<?php echo $todays_opinion_html; ?>
 	<hr>
