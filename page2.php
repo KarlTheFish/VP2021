@@ -33,10 +33,6 @@ $photo_list_html = "<ul>";
 	}
 	$photo_list_html .= "</ul>";
 
-//fotode valik
-
-
-
 //fotode valikumenüü
 
 $photo_select_html = "\n".'<select name="photo_select">'."\n";
@@ -44,6 +40,18 @@ $photo_select_html = "\n".'<select name="photo_select">'."\n";
  	{$photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
 	}
 	$photo_select_html .= "</select>";
+
+//fotode valiku nupu vajutamise kontroll
+
+$photo_select_test = null;
+$user_photo_select = "test";
+if(isset($_POST["submit_picture"])){
+	$photo_select_test = "Nupp vajutatud";
+	$user_photo_select = $_POST["photo_select"];
+	$ran_picture = $real_files[$user_photo_select];
+	$photo_html = '<img src="' .$photo_dir .$ran_picture . '" alt="Valitud pilt" width="500">';
+}
+
 ?>
 <!DOCTYPE html> <!-- Vajalik HTML osa alguses -->
 <html lang="et">
@@ -102,9 +110,11 @@ if(isset($_POST["submit_opinion"]))
 	<h2><center>Graphic design is my passion</center></h2>
 	<?php echo $photo_html; 
 	echo $photo_list_html;
-	echo $photo_select_html; ?>
+	echo $photo_select_html; 
+	echo $user_photo_select; ?>
 	<form method="post"> <!-- vormielement -->
 	<input type="submit" name="submit_picture" value="Vali pilt">
+		<span><?php echo $photo_select_test ?></span>
 		<hr>
 		<input type="text" name="user_opinion" placeholder="Mida arvate tänasest päevast?" value="<?php echo $todays_opinion; ?>">
 		<input type="submit" name="submit_opinion" value="Saada">
