@@ -51,6 +51,7 @@ $film_html = films_from_database();
 	<h2><center>Eesti filmid</center></h2>
 	
 <?php echo $film_html;
+
 ?>
 
 </body>
