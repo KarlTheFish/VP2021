@@ -7,8 +7,11 @@ require_once("fun_films.php");
 
 $film_store_notice = null;
 
+$user_title_input = null;
+
 if(isset($_POST["film_submit"])){
-	if(!empty($_POST["title_input"]) and !empty($_POST["genre_input"]) and !empty($_POST["studio_input"]) and !empty($_POST["director_input"])){
+	if(!empty($_POST["title_input"]){
+        $user_title_input = $_POST["title_input"];
 		$film_store_notice = store_film($_POST["title_input"],$_POST["year_input"],$_POST["duration_input"],$_POST["genre_input"],$_POST["studio_input"],$_POST["director_input"]);
 	}
 	else {

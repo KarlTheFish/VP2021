@@ -36,8 +36,11 @@ $photo_list_html = "<ul>";
 //fotode valikumenüü
 
 $photo_select_html = "\n".'<select name="photo_select">'."\n";
-	for($i = 0; $i < $limit; $i++ )
- 	{$photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
+	for($i = 0; $i < $limit; $i++ ){
+	$photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
+	if($i == $pic_nr){
+		$photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
+		}
 	}
 	$photo_select_html .= "</select>";
 
