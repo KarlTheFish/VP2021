@@ -25,32 +25,33 @@ $pic_nr = mt_rand(0, $limit - 1);
 $ran_picture = $real_files[$pic_nr];
 $photo_html = '<img src="' .$photo_dir .$ran_picture . '" alt="Pilt" width="500">';
 
-//fotode list
-
-$photo_list_html = "<ul>";
-	for($i = 0; $i < $limit; $i++ ) //for funktsionis sulgudes (algväärtus, max väärtus, mitme vörra liidetakse)
-	{$photo_list_html .= "<li>".$real_files[$i]."</li>";
-	}
-	$photo_list_html .= "</ul>";
-
 //fotode valikumenüü
-
 $photo_select_html = "\n".'<select name="photo_select">'."\n";
-	for($i = 0; $i < $limit; $i++ )
- 	{$photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
+	for($i = 0; $i < $limit; $i++ ){
+        if($i == $pic_nr){
+            $photo_select_html .= '<option value="' .$pic_nr .'"selected>' .$ran_picture. "</option> \n";
+        }
+        else{
+            $photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
+        }
 	}
 	$photo_select_html .= "</select>";
 
 //fotode valiku nupu vajutamise kontroll
 
 $photo_select_test = null;
-$user_photo_select = "test";
+$user_photo_select = null;
 if(isset($_POST["submit_picture"])){
 	$photo_select_test = "Nupp vajutatud";
 	$user_photo_select = $_POST["photo_select"];
 	$ran_picture = $real_files[$user_photo_select];
+	$pic_nr = $user_photo_select;
 	$photo_html = '<img src="' .$photo_dir .$ran_picture . '" alt="Valitud pilt" width="500">';
 }
+
+//nimi fotode all
+
+$photo_list_html = $ran_picture."\n";
 
 ?>
 <!DOCTYPE html> <!-- Vajalik HTML osa alguses -->
