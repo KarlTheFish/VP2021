@@ -1,5 +1,4 @@
 <!-- PHP failis vöib olla ka HTML, kuid failil endal peab alati olema .php laiend -->
-<!-- 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 -->
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
 $author_name = "Karl"; #PHP lause peab löppema semikooloniga
 $time_hours = date("H");

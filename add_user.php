@@ -2,7 +2,7 @@
 	$author_name = "Karl";
     require_once("../../config.php");
     require_once("fnc_general.php");
-    //require_once("fnc_user.php");
+    require_once("fnc_user.php");
 
     $notice = null;
     $firstname = null;
@@ -104,7 +104,7 @@
 				}
 				}
 				else{
-					$gender_error = "Palun sisestage oma sünniaasta!";
+					$birth_day_error = "Palun sisestage oma sünniaasta!";
 				}
 				
 			//kuupäeva valideerimine ja kokkupanemine
@@ -112,7 +112,8 @@
 			if(empty($birth_day_error) and empty($birth_month_error) and empty($birth_year_error)) {
 				if(checkdate($birth_month, $birth_day, $birth_year)) {
 					$temp_date = new DateTime($birth_year."-".$birth_month."-".$birth_day);
-					$birth_date = $temp_date->format("Y -m -d"); //klasside kasutamiseks $klass->käsk
+					$birth_date = $temp_date->format("Y-m-d"); //klasside kasutamiseks $klass->käsk
+					echo $birth_date;
 				}
 				else {
 					$birth_date_error = "Valitud kuupäev ei eksisteeri!";
@@ -152,6 +153,12 @@
 			else{
 				$confirm_password_error = "Sisesta parool teist korda!";
 			}
+			
+		//kui köik ok, salvestame uue kasutaja
+		
+		if(empty($firstname_error) and empty($surname_error) and empty($gender_error) and empty($birth_date_error) and empty($email_error) and empty($password_error) and empty($confirm_password_error) and empty($birth_day_error) and empty($birth_month_error) and empty($birth_year_error)){
+			$notice = sign_up($firstname,$surname,$gender,$birth_date,$email,$_POST["password_input"]);
+		}
         }//if isset lõppeb
     }//if request_method lõppeb
 ?>
