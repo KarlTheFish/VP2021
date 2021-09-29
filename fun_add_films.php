@@ -10,14 +10,45 @@ $film_store_notice = null;
 $user_title_input = null;
 
 if(isset($_POST["film_submit"])){
-	if(!empty($_POST["title_input"]){
+	if(!empty($_POST["title_input"])){
         $user_title_input = $_POST["title_input"];
-		$film_store_notice = store_film($_POST["title_input"],$_POST["year_input"],$_POST["duration_input"],$_POST["genre_input"],$_POST["studio_input"],$_POST["director_input"]);
-	}
+        if(!empty($_POST["year_input"])){
+            $user_year_input = $_POST["year_input"];
+            if(!empty($_POST["duration_input"])){
+                $user_duration_input = $_POST["duration_input"];
+                if(!empty($_POST["genre_input"])){
+                    $user_genre_input = $_POST["genre_input"];
+                    if(!empty($_POST["studio_input"])){
+                        $user_studio_input = $_POST["studio_input"];
+                        if(!empty($_POST["director_input"])){
+                            $user_director_input = $_POST["director_input"];
+                            $film_store_notice = store_film($_POST["title_input"],$_POST["year_input"],$_POST["duration_input"],$_POST["genre_input"],$_POST["studio_input"],$_POST["director_input"]);
+                        }
+                        else{
+                        $film_store_notice = "Sisestage filmi tootja!";
+                        }
+                    }
+                    else{
+                        $film_store_notice = "Sisestage filmistuudio nimi!";
+                    }
+                }
+                else{
+                    $film_store_notice = "Sisestage filmi zanr!";
+                }
+            }
+            else{
+                $film_store_notice = "Sisestage filmi kestus!";
+            }
+        }    
+        else {
+            $film_store_notice = "Sisestage valmimisaasta!";
+        }
+    }
 	else {
-		$film_store_notice = "Andmeid on puudu!";
+		$film_store_notice = "Sisestage pealkiri!";
 	}
 }
+
 
 ?>
 <!DOCTYPE html> <!-- Vajalik HTML osa alguses -->

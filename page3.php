@@ -54,6 +54,13 @@ $film_html = films_from_database();
 
 ?>
 
+<form method="post"> 
+    <select name="test">
+        <option value="0">Test1</option>
+        <option value="1" selected>Test2</option>
+    </select>
+</form>
+
 </body>
 <footer>
 	<hr>
