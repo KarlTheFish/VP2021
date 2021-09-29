@@ -58,31 +58,31 @@ if(isset($_POST["film_submit"])){
 	<title><?php echo $author_name;?>i leht</title>
 	<style>
 		body {
-  				animation: 100000ms ease-in-out infinite color-change; 
-}
+				animation: 100000ms ease-in-out infinite color-change; 
+			}
 
-@keyframes color-change {
-  0% {
-    background-color: black;
-	color: white;
-  }
-  25% {
-    background-color: gold;
-	color: black;
-  }
-  50% {
-    background-color: black;
-	color: white;
-  }
-  75% {
-    background-color: red;
-	color: black;
-  }
-  100% {
-    background-color: black;
-	color: white;
-  }
-}
+			@keyframes color-change {
+			  0% {
+				background-color: black;
+				color: white;
+			  }
+			  25% {
+				background-color: gold;
+				color: black;
+			  }
+			  50% {
+				background-color: black;
+				color: white;
+			  }
+			  75% {
+				background-color: red;
+				color: black;
+			  }
+			  100% {
+				background-color: black;
+				color: white;
+			  }
+			}
 
 	</style>
 </head>
