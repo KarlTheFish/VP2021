@@ -28,12 +28,19 @@ $photo_html = '<img src="' .$photo_dir .$ran_picture . '" alt="Pilt" width="500"
 //fotode valikumenüü
 $photo_select_html = "\n".'<select name="photo_select">'."\n";
 	for($i = 0; $i < $limit; $i++ ){
+<<<<<<< HEAD
+	$photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
+	if($i == $pic_nr){
+		$photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
+		}
+=======
         if($i == $pic_nr){
             $photo_select_html .= '<option value="' .$pic_nr .'"selected>' .$ran_picture. "</option> \n";
         }
         else{
             $photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
         }
+>>>>>>> fc6531b9847419a1e3c1fa10a8f7c2580162359e
 	}
 	$photo_select_html .= "</select>";
 
