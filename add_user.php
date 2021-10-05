@@ -111,7 +111,7 @@
 			
 			if(empty($birth_day_error) and empty($birth_month_error) and empty($birth_year_error)) {
 				if(checkdate($birth_month, $birth_day, $birth_year)) {
-					$temp_date = new DateTime($birth_year."-".$birth_month."-".$birth_day);
+					$temp_date = new DateTime($birth_year ."-" .$birth_month ."-" .$birth_day);
 					$birth_date = $temp_date->format("Y-m-d"); //klasside kasutamiseks $klass->käsk
 					echo $birth_date;
 				}

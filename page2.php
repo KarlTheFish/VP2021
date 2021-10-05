@@ -30,15 +30,8 @@ $photo_select_html = "\n".'<select name="photo_select">'."\n";
 	for($i = 0; $i < $limit; $i++ ){
 	$photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
 	if($i == $pic_nr){
-		$photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
+		$photo_select_html .= '<option value="' .$i .'" selected>' .$real_files[$i]. "</option> \n";
 		}
-
-        if($i == $pic_nr){
-            $photo_select_html .= '<option value="' .$pic_nr .'"selected>' .$ran_picture. "</option> \n";
-        }
-        else{
-            $photo_select_html .= '<option value="' .$i .'">' .$real_files[$i]. "</option> \n";
-        }
 	}
 	$photo_select_html .= "</select>";
 
@@ -56,7 +49,7 @@ if(isset($_POST["submit_picture"])){
 
 //nimi fotode all
 
-$photo_list_html = $ran_picture."\n";
+//$photo_list_html = "\n".$ran_picture."\n";
 
 ?>
 <!DOCTYPE html> <!-- Vajalik HTML osa alguses -->
@@ -121,6 +114,11 @@ if(isset($_POST["submit_opinion"]))
 	echo $user_photo_select; ?>
 	<input type="submit" name="submit_picture" value="Vali pilt">
 		<span><?php echo $photo_select_test ?></span>
+        
+        <select name="test">
+        <option value="0">Test1</option>
+        <option value="1" selected>Test2</option>
+        </select>
 	</form>
 	<form method="post"> <!-- vormielement -->
 		<hr>
