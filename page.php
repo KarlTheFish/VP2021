@@ -27,27 +27,6 @@ else
 		{$time_cat = "vaba aeg";
 		}
 	}
-//juhusliku foto lisamine
-$photo_dir = "pildid/";
-#$photo_files = scandir($photo_dir); #failikataloogi skännimiseks scandir
-$real_files = array_slice(scandir($photo_dir), 2);
-
-//sõelume välja päris pildid
-/* $photos = [];
-$allowed_files = ["image/png","image/jpeg"];
-foreach($real_files as $file_name) {
-	$file_meta = getimagesize($photo_dir .$photo_files);
-	if(isset($file_meta["mime"])) {
-		if(in_array($file_info["mime"], $allowed_files)) {
-			array_push($allowed_files, $file_name);
-		}
-	}
-} */
-
-$limit = count($real_files);
-$pic_nr = mt_rand(0, $limit - 1);
-$ran_picture = $real_files[$pic_nr];
-$photo_html = '<img src="' .$photo_dir .$ran_picture . '" alt="Pilt" width="500">';
 ?>
 <!DOCTYPE html> <!-- Vajalik HTML osa alguses -->
 <html lang="et">
@@ -57,30 +36,30 @@ $photo_html = '<img src="' .$photo_dir .$ran_picture . '" alt="Pilt" width="500"
 	<style>
 		body {
   				animation: 100000ms ease-in-out infinite color-change; 
-}
+			}
 
-@keyframes color-change {
-  0% {
-    background-color: black;
-	color: white;
-  }
-  25% {
-    background-color: gold;
-	color: black;
-  }
-  50% {
-    background-color: black;
-	color: white;
-  }
-  75% {
-    background-color: red;
-	color: black;
-  }
-  100% {
-    background-color: black;
-	color: white;
-  }
-}
+			@keyframes color-change {
+			  0% {
+				background-color: black;
+				color: white;
+			  }
+			  25% {
+				background-color: gold;
+				color: black;
+			  }
+			  50% {
+				background-color: black;
+				color: white;
+			  }
+			  75% {
+				background-color: red;
+				color: black;
+			  }
+			  100% {
+				background-color: black;
+				color: white;
+			  }
+			}
 
 	</style>
 </head>
