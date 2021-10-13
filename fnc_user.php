@@ -33,5 +33,36 @@ $database="if21_karlvask";
 		return $notice;
 		
 	}
+	
+	//Sisselogimine
+	
+	function sign_in($email, $password){
+        $notice = null;
+        $connection = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
+        $connection->set_charset("utf8");
+        $state = $connection->prepare("SELECT password FROM vprg_users WHERE email = ?");
+        echo $connection->error;
+        $state->bind_param("s", $email);
+        $state->bind_result($password_from_db);
+        $state->execute();
+        if($state->fetch()){
+            //kasutaja on olemas, parool tuli ...
+            if(password_verify($password, $password_from_db)){
+                //parool õige, oleme sees!
+                $state->close();
+                $connection->close();
+                header("Location: home.php");
+                exit();
+            } else {
+                $notice = "Kasutajatunnus või salasõna oli vale!";
+            }
+        } else {
+            $notice = "Kasutajatunnus või salasõna oli vale!";
+        }
+        
+        $state->close();
+        $connection->close();
+        return $notice;
+    }
 
 ?>
