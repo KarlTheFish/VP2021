@@ -37,7 +37,6 @@ else
 //sisselogimine
     $notice = null;
     if(isset($_POST["login_submit"])){
-        echo "Login!";
         $notice = sign_in($_POST["email_input"], $_POST["password_input"]);
         if(isset($_POST["email_input"])) {
             $email = filter_var($_POST["email_input"], FILTER_SANITIZE_EMAIL);
