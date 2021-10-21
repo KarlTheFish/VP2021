@@ -27,7 +27,6 @@ $photo_html = '<img src="' .$photo_dir .$ran_picture . '" alt="Pilt" width="500"
 
 //fotode valiku nupu vajutamise kontroll
 
-$photo_select_test = null;
 $user_photo_select = null;
 if(isset($_POST["submit_picture"])){
 	$user_photo_select = $_POST["photo_select"];
@@ -110,8 +109,7 @@ if(isset($_POST["submit_opinion"]))
 	<form method="post">
 	<?php echo $photo_html."<br>";
 	echo $photo_list_html;
-	echo $photo_select_html; 
-	echo $user_photo_select; ?>
+	echo $photo_select_html; ?>
 	<input type="submit" name="submit_picture" value="Vali pilt">
 	</form>
 	<form method="post"> <!-- vormielement -->
