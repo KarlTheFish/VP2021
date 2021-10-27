@@ -129,5 +129,34 @@ function store_person_movie_relation($movie_selected, $person_selected, $positio
 	return $relation_store_notice;
 }
 
+function save_photo($image, $file_type, $target) {
+	$notice = null;
+	if($file_type == "jpg"){
+		if(imagejpeg($image,$target,90)){
+			$notice = "Foto salvestamine õnnestus";
+		}
+		else{
+			$notice = "Foto salvestamisel tekkis viga";
+		}
+	}
+	if($file_type == "png"){
+			if(imagepng($image,$target,6)){
+			$notice = "Foto salvestamine õnnestus";
+		}
+		else{
+			$notice = "Foto salvestamisel tekkis viga";
+		}
+	}
+	if($file_type == "gif"){
+			if(imagegif($image,$target)){
+			$notice = "Foto salvestamine õnnestus";
+		}
+		else{
+			$notice = "Foto salvestamisel tekkis viga";
+		}
+	}
+	return $notice;
+}
+
 
 ?>

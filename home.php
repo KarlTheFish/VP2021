@@ -13,5 +13,7 @@
 	<p>Õppetöö toimub <a href="https://www.tlu.ee/dt">Tallinna Ülikooli Digitehnoloogiate instituudis</a>.</p>
 	<hr>
     <p>Olemegi sisse loginud!</p>
+	<hr>
+	<li><a href="photo_upload_gallery.php">Piltide galerii ja üleslaadimine</a><li>
 </body>
 </html>
