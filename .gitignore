@@ -1,2 +1,8 @@
 debug.log
 *.kate-swp
+upload_photo_normal/
+upload_photo_og/
+upload_photo_thumb/
+pics/
+pildid/
+person_photo/
