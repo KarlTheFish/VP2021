@@ -5,6 +5,8 @@ $author_name = "Karl"; #PHP lause peab löppema semikooloniga
 require_once("../../config.php"); //PHP käsk, millega saab teisi PHP faile nöuda
 require_once("fun_films.php");
 
+echo "Test 2";
+
 $film_store_notice = null;
 
 $title_input_error = null;
@@ -23,20 +25,28 @@ $user_director_input = null;
 
 if(isset($_POST["film_submit"])){
 	if(!empty($_POST["title_input"])){
+        $user_title_input = htmlspecialchars($_POST["title_input"]);
         $user_title_input = filter_var(($_POST["title_input"]), FILTER_SANITIZE_STRING);
+
     }
     else{
         $film_store_notice = "Andmeid on puudu!";
         $title_input_error = "Sisestage filmi pealkiri!";
     }
     if(!empty($_POST["year_input"])){
+
+        $user_year_input = htmlspecialchars($_POST["year_input"]);
         $user_year_input = filter_var(($_POST["year_input"]), FILTER_VALIDATE_INT);
+
     }
     else {
     $film_store_notice = "Andmeid on puudu!";
     $year_input_error = "Sisestage väljastamisaasta!";
     }
     if(!empty($_POST["duration_input"])){
+
+        $user_duration_input = htmlspecialchars($_POST["duration_input"]);
+
         $user_duration_input = filter_var($user_duration_input, FILTER_VALIDATE_INT);
     }
     else{
@@ -44,21 +54,33 @@ if(isset($_POST["film_submit"])){
         $duration_input_error = "Sisestage filmi kestus minutites!";
     }
     if(!empty($_POST["genre_input"])){
+
+        $user_genre_input = htmlspecialchars($_POST["genre_input"]);
+
         $user_genre_input = filter_var(($_POST["genre_input"]), FILTER_SANITIZE_STRING);
+
     }
     else{
         $film_store_notice = "Andmeid on puudu!";
         $genre_input_error = "Sisestage filmizanr!";
     }
     if(!empty($_POST["studio_input"])){
+
+        $user_studio_input = htmlspecialchars($_POST["studio_input"]);
+
         $user_studio_input = filter_var(($_POST["studio_input"]), FILTER_SANITIZE_STRING);
+
     }
     else{
         $film_store_notice = "Andmeid on puudu!";
         $studio_input_error = "Sisestage filmistuudio!";
     }
     if(!empty($_POST["director_input"])){
+
+        $user_director_input = htmlspecialchars($_POST["director_input"]);
+
         $user_director_input = filter_var(($_POST["director_input"]), FILTER_SANITIZE_STRING);
+
     }
     else{
     $film_store_notice = "Andmeid on puudu!";

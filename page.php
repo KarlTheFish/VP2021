@@ -4,6 +4,18 @@ require_once("../../config.php");
 require_once("fnc_general.php");
 require_once("fnc_user.php");
 
+$id_from_db = null;
+
+echo "test 1";
+
+session_start();
+    $_SESSION["user_id"] = $id_from_db;
+    
+    if(!isset($_SESSION["user_id"])){
+    echo "sessioon alustatud";
+// 	header("Location: page.php");
+     }
+
 $author_name = "Karl"; #PHP lause peab löppema semikooloniga
 $time_hours = date("H");
 $time_minutes = date("i");
@@ -35,13 +47,17 @@ else
 	}
 	
 //sisselogimine
-    $notice = null;
+
+$notice = null;
     if(isset($_POST["login_submit"])){
-        $notice = sign_in($_POST["email_input"], $_POST["password_input"]);
         if(isset($_POST["email_input"])) {
             $email = filter_var($_POST["email_input"], FILTER_SANITIZE_EMAIL);
             if (!filter_var($email, FILTER_VALIDATE_EMAIL) === true) {
                 $notice = "Palun sisestage õige emaili aadress!";
+            }
+            else{
+                echo "Login!";
+                $notice = sign_in($_POST["email_input"], $_POST["password_input"]);
             }
         }
     }
@@ -95,7 +111,7 @@ else
         <input type="password" name="password_input" placeholder="salasõna">
         <input type="submit" name="login_submit" value="Logi sisse"><?php echo $notice; ?>
     </form>
-    <p>Loo omale <a href="add_user.php">kasutajakonto</a></p>
+    <p>Loo omale <a href="fun_add_user.php">kasutajakonto</a></p>
     <hr>
 	
 	<!-- hitwebcounter Code START -->
