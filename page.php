@@ -1,20 +1,12 @@
 <!-- PHP failis vöib olla ka HTML, kuid failil endal peab alati olema .php laiend -->
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
+
+ session_start();
+ 
 require_once("../../config.php");
 require_once("fnc_general.php");
 require_once("fnc_user.php");
 
-$id_from_db = null;
-
-echo "test 1";
-
-session_start();
-    $_SESSION["user_id"] = $id_from_db;
-    
-    if(!isset($_SESSION["user_id"])){
-    echo "sessioon alustatud";
-// 	header("Location: page.php");
-     }
 
 $author_name = "Karl"; #PHP lause peab löppema semikooloniga
 $time_hours = date("H");
@@ -56,7 +48,6 @@ $notice = null;
                 $notice = "Palun sisestage õige emaili aadress!";
             }
             else{
-                echo "Login!";
                 $notice = sign_in($_POST["email_input"], $_POST["password_input"]);
             }
         }

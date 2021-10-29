@@ -1,7 +1,7 @@
 <?php
 $database="if21_karlvask";
 
-	function sign_up($firstname,$surname,$email,$gender,$birth_date,$password) {
+	function sign_up($firstname,$surname,$birth_date,$gender,$email,$password) {
 		$notice = null;
 		$connection = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]); //sulgudes: server, kasutaja, parool, andmebaas
 
@@ -9,18 +9,15 @@ $database="if21_karlvask";
 
 		$connection->set_charset("utf8");
 		
-		echo "test 7";
-
 		//SQL käsu ettevalmistamine - kirjutame käsu
 		
 		$state = $connection->prepare("SELECT id FROM vprg_users WHERE email = ?");
 		$state->bind_param("s", $email);
+		echo $email;
 		$state->bind_result($id_from_db);
 		$state->execute();
-		
 		if($state->fetch()){
             $notice = "Sellise e-mailiga kasutaja juba eksisteerib!";
-            echo "email olemas";
 		}
 		
         else{
@@ -55,15 +52,17 @@ $database="if21_karlvask";
         $notice = null;
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
         $conn->set_charset("utf8");
-        $stmt = $conn->prepare("SELECT password FROM vprg_users WHERE email = ?");
+        $stmt = $conn->prepare("SELECT password, id, firstname, lastname FROM vprg_users WHERE email = ?");
         echo $conn->error;
         $stmt->bind_param("s", $email);
-        $stmt->bind_result($password_from_db);
+        $stmt->bind_result($password_from_db, $id_from_db, $firstname_from_db, $lastname_from_db);
         $stmt->execute();
         if($stmt->fetch()){
             //kasutaja on olemas, parool tuli ...
             if(password_verify($password, $password_from_db)){
                 //parool õige, oleme sees!
+                $_SESSION["user_id"] = $id_from_db;
+                $_SESSION["user_name"] = $firstname_from_db ." ". $lastname_from_db;
                 $stmt->close();
                 $conn->close();
                 header("Location: home.php");
@@ -79,5 +78,11 @@ $database="if21_karlvask";
         $conn->close();
         return $notice;
     }
+    
+ function colors(){
+    $notice = null;
+        $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
+        $conn->set_charset("utf8");
+ }
 
 ?>

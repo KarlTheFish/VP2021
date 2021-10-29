@@ -27,8 +27,6 @@
     $password_error = null;
     $confirm_password_error = null;
     
-    echo "test 4";
-
     //kontrollime sisestust
     if($_SERVER["REQUEST_METHOD"] === "POST"){
         if(isset($_POST["user_data_submit"])){

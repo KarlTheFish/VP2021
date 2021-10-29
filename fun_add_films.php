@@ -1,5 +1,11 @@
 <!-- PHP failis vöib olla ka HTML, kuid failil endal peab alati olema .php laiend -->
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
+session_start();
+	$author_name = $_SESSION["user_name"];
+	
+    if(!isset($_SESSION["user_id"])){
+	header("Location: page.php");
+    }
 $author_name = "Karl"; #PHP lause peab löppema semikooloniga
 
 require_once("../../config.php"); //PHP käsk, millega saab teisi PHP faile nöuda

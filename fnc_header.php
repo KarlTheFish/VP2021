@@ -1,11 +1,10 @@
 <?php
 
-$css_colors = "<style> \n";
-$css_colors .= "/t body \n";
-$css_colors .= "";
-
-
-
+ $css_colors = "<style> \n";
+    $css_colors .= "\t body { \n";
+    $css_colors .= "\t \t background-color: " .$_SESSION["bg_color"] ."; \n";
+    $css_colors .= "\t \t color: " .$_SESSION["text_color"] ."; \n";
+    $css_colors .= "\t } \n </style> \n";
 ?>
 <!DOCTYPE html> <!-- Vajalik HTML osa alguses -->
 <html lang="et">

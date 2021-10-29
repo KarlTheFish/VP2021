@@ -1,7 +1,26 @@
 <!-- PHP failis vöib olla ka HTML, kuid failil endal peab alati olema .php laiend -->
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
-$author_name = "Karl"; #PHP lause peab löppema semikooloniga
+session_start();
+
+require_once("fnc_user.php");
+	$author_name = $_SESSION["user_name"];
+	
+    if(!isset($_SESSION["user_id"])){
+	header("Location: page.php");
+    }
+    
+    if(isset($_GET["logout"])){
+	session_destroy();
+	header("Location: page.php");
+}
 $notice = null;
+
+    if(isset($_POST["profile_submit"])){
+        $bg_color_input = $_POST["bg_color_input"];
+        $text_color_input = $_POST["text_color_input"];
+        $notice = colors($bg_color_input, $text_color_input);
+    }
+
 ?>
 <head>
 </head>
