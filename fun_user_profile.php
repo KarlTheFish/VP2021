@@ -2,6 +2,7 @@
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
 session_start();
 
+require_once("../../config.php");
 require_once("fnc_user.php");
 	$author_name = $_SESSION["user_name"];
 	
@@ -18,7 +19,8 @@ $notice = null;
     if(isset($_POST["profile_submit"])){
         $bg_color_input = $_POST["bg_color_input"];
         $text_color_input = $_POST["text_color_input"];
-        $notice = colors($bg_color_input, $text_color_input);
+        $user_desc_input = $_POST["description_input"];
+        $notice = profile($_SESSION["user_id"], $user_desc_input, $bg_color_input, $text_color_input);
     }
 
 ?>

@@ -52,20 +52,46 @@ $database="if21_karlvask";
         $notice = null;
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
         $conn->set_charset("utf8");
-        $stmt = $conn->prepare("SELECT password, id, firstname, lastname FROM vprg_users WHERE email = ?");
+        $state = $conn->prepare("SELECT password, id, firstname, lastname FROM vprg_users WHERE email = ?");
         echo $conn->error;
-        $stmt->bind_param("s", $email);
-        $stmt->bind_result($password_from_db, $id_from_db, $firstname_from_db, $lastname_from_db);
-        $stmt->execute();
-        if($stmt->fetch()){
+        $state->bind_param("s", $email);
+        $state->bind_result($password_from_db, $id_from_db, $firstname_from_db, $lastname_from_db);
+        $state->execute();
+        if($state->fetch()){
             //kasutaja on olemas, parool tuli ...
             if(password_verify($password, $password_from_db)){
                 //parool õige, oleme sees!
                 $_SESSION["user_id"] = $id_from_db;
                 $_SESSION["user_name"] = $firstname_from_db ." ". $lastname_from_db;
-                $stmt->close();
-                $conn->close();
+                $state->close();
                 header("Location: home.php");
+                $state = $conn->prepare("SELECT id FROM vprg_userprofiles WHERE userid = ?");
+                $state->bind_param("i", $_SESSION["user_id"]);
+                $state->bind_result($profile_id);
+                $state->execute();
+                if($state->fetch()){
+                    $state->close();
+                    $state = $conn->prepare("SELECT bgcolor, txtcolor FROM vprg_userprofiles WHERE userid = ?");
+                    $state->bind_param("i", $_SESSION["user_id"]);
+                    $state->bind_result($bgcolor_from_db, $txtcolor_from_db);
+                    $state->execute();
+                    if((!isset($bgcolor_from_db)) or (!isset($txtcolor_from_db))){
+                        $state->close();
+                        $defbg = "ffffff";
+                        $deftxt = "000000";
+                        $state = $conn->prepare("UPDATE vprg_userprofiles SET bgcolor = ?, txtcolor = ? WHERE userid = ?");
+                        $state->bind_param("ssi", $defbg, $deftxt, $_SESSION["user_id"]);
+                        $state->execute();
+                        }
+                }
+                else{
+                    $state->close();
+                    $defbg = "ffffff";
+                    $deftxt = "000000";
+                    $state = $conn->prepare("INSERT INTO vprg_userprofiles (userid, bgcolor, txtcolor) VALUES (?, ?, ?)");
+                    $state->bind_param("iss", $_SESSION["user_id"], $defbg, $deftxt);
+                    $state->execute();
+                }
                 exit();
             } else {
                 $notice = "Kasutajatunnus või salasõna oli vale!";
@@ -74,15 +100,31 @@ $database="if21_karlvask";
             $notice = "Kasutajatunnus või salasõna oli vale!";
         }
         
-        $stmt->close();
+        $state->close();
         $conn->close();
         return $notice;
     }
     
- function colors(){
+ function profile($userid, $userdesc, $bgcolor, $txtcolor){
     $notice = null;
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
         $conn->set_charset("utf8");
+        $state= $conn->prepare("SELECT bgcolor, txtcolor FROM vprg_userprofiles WHERE userid = ?");
+        $state->bind_param("i", $userid);
+        $state->bind_result($bg_from_db, $txt_from_db);
+        $state->execute();
+        if(!($state->fetch())){
+            $state->close();
+            $state = $conn->prepare("INSERT INTO vprg_userprofiles (userid, description, bgcolor, txtcolor) VALUES (?, ?, ?, ?) ");
+            $state->bind_param("is", $userid, $userdesc, $bgcolor, $txtcolor);
+            $state->execute();
+        }
+        else{
+            
+        }
+        
+        $state->close();
+        $conn->close();
  }
 
 ?>
