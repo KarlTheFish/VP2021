@@ -6,6 +6,7 @@
 require_once("../../config.php");
 require_once("fnc_general.php");
 require_once("fnc_user.php");
+require_once("fun_movie.php");
 
 
 $author_name = "Karl"; #PHP lause peab löppema semikooloniga
@@ -113,7 +114,10 @@ $notice = null;
 	<img src="monster.gif" alt="Monsteri logo gif"></img>
 <p>Minu top 10 Monsteri maitset: <br>
 	1. Monster Mule <br> 2. Pacific punch <br> 3. Ultra fiesta mango <br> 4. Ultra violet <br> 5. Monster Ripper <br> 6. Monarch <br> 7. Ultra black</p>
-	<?php echo $photo_html; ?>
+	
+	<!-- Viimane galeriise lisatud avalik foto -->
+	<?php echo show_latest_public_photo() ;?>
+	
 	<p>See leht on loodud öppetöö raames ning ei sisalda tösiselt vöetavat sisu.</p>
 	<p>Öppetöö toimub <a href="https://www.tlu.ee/dt">Tallinna ülikooli digitehnoloogiate instituudis</a>.</p>
 </body>

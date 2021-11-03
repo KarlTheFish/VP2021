@@ -131,6 +131,9 @@ function store_person_movie_relation($movie_selected, $person_selected, $positio
 
 function save_photo($image, $file_type, $target) {
 	$notice = null;
+	global $file_name;
+	global $alt_text;
+	global $privacy;
 	if($file_type == "jpg"){
 		if(imagejpeg($image,$target,90)){
 			$notice = "Foto salvestamine õnnestus";
@@ -160,11 +163,20 @@ function save_photo($image, $file_type, $target) {
 	
 	$connection->set_charset("utf8");
 	
-	$state = $connection->prepare("INSERT INTO vprg_photos (userid, filename, alttext) VALUES (?, ?, ?)");
-	$state->bind_param("iss", $_SESSION["user_id"], $file_name, $alt_text);
-	if(!($state->execute())){
-        echo "Pildi salvestamisel tekkis viga!";
-        }
+	$state = $connection->prepare("SELECT id FROM vprg_photos WHERE filename = ?");
+	
+	$state->bind_param("s", $file_name);
+	$state->bind_result($photo_id);
+	$state->execute();
+	if(!($state->fetch())){
+		$state->close();
+		$state = $connection->prepare("INSERT INTO vprg_photos (userid, filename, alttext, privacy) VALUES (?, ?, ?, ?)");
+		$state->bind_param("issi", $_SESSION["user_id"], $file_name, $alt_text, $privacy);
+		if(!($state->execute())){
+			echo "Pildi salvestamisel tekkis viga!";
+			echo $connection->error;
+			}
+	}
 	
 	$state->close();
 	$connection->close();
@@ -194,6 +206,13 @@ function photo_resize($temp_image, $image_width, $image_height, $isMax, $isThumb
 	//uue väiksema pildiobjekti loomine
 	
 	$new_temp_image = imagecreatetruecolor($image_new_width, $image_new_height);
+	
+	//säilitame vajadusel läbipaistvuse
+	
+	imagesavealpha($new_temp_image, true); 
+	$trans_color = imagecolorallocatealpha($new_temp_image, 0, 0, 0, 127);
+	imagefill($new_temp_image, 0, 0, $trans_color);
+	
 	imagecopyresampled($new_temp_image, $temp_image, 0, 0, 0, 0, $image_new_width, $image_new_height, $image_width, $image_height);
 	
 	//vesimärgi lisamine
@@ -209,6 +228,72 @@ function photo_resize($temp_image, $image_width, $image_height, $isMax, $isThumb
 	//salvestamine
 	
 	return $new_temp_image;
+}
+
+function show_latest_public_photo(){
+	$photo_html = null;
+	$privacy = 1;
+	$connection = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
+	echo $connection->error;
+	
+	$connection->set_charset("utf8");
+	
+	$state = $connection->prepare("SELECT filename, alttext FROM vprg_photos WHERE id = (SELECT MAX(id) FROM vprg_photos WHERE privacy = ? AND deleted IS NULL)");
+	echo  $connection->error;
+	$state->bind_param("i",$privacy);
+	$state->bind_result($filename_from_db, $alt_text_from_db);
+	$state->execute();
+	if($state->fetch()){
+		//<img src=kataloog/fail alt="tekst">
+		$photo_html = '<img src="'.$GLOBALS["upload_photo_normal_dir"].$filename_from_db . '" alt ="';
+		if(empty($alt_text_from_db)){
+			$photo_html .= "Üleslaetud foto";
+		}
+		else{
+			$photo_html .= $alt_text_from_db;
+		}
+		$photo_html .= '">'."\n";
+	}
+	else{
+		$photo_html = "<p>Avalikke pilte ei ole üles laetud!</p>";
+	}
+	$state->close();
+	$connection->close();
+	return $photo_html;
+}
+
+function read_public_photo_thumbs($privacy){
+	$photo_html = null;
+	$connection = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
+	echo $connection->error;
+	
+	$connection->set_charset("utf8");
+	
+	$state = $connection->prepare("SELECT filename, alttext FROM vprg_photos WHERE privacy >= ? AND deleted IS NULL ORDER BY id DESC LIMIT 2");
+	echo  $connection->error;
+	$state->bind_param("i", $privacy);
+	$state->bind_result($filename_from_db, $alt_text_from_db);
+	$state->execute();
+	while($state->fetch()){
+		//<img src=kataloog/fail alt="tekst">
+		$photo_html .= '<div class="thumbgallery">'."\n";
+		$photo_html .= '<img src="'.$GLOBALS["upload_photo_normal_dir"].$filename_from_db . '" alt ="';
+		if(empty($alt_text_from_db)){
+			$photo_html .= "Üleslaetud foto";
+		}
+		else{
+			$photo_html .= $alt_text_from_db;
+		}
+		$photo_html .= '" class="thumbs">'."\n";
+		$photo_html .= '</div>'."\n";
+	}
+	if(empty($photo_html)){
+		$photo_html = "<p>Avalikke pilte ei ole üles laetud!</p>";
+	}
+	
+	$state->close();
+	$connection->close();
+	return $photo_html;
 }
 
 

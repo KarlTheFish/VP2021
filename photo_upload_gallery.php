@@ -11,9 +11,6 @@ $author_name = "Karl"; #PHP lause peab löppema semikooloniga
 require_once("fun_movie.php"); 
 
 $photo_store_notice = null;
-$upload_photo_orig_dir = "upload_photo_og/";
-$upload_photo_normal_dir = "upload_photo_normal/";
-$upload_photo_thum_dir = "upload_photo_thumb/";
 $file_name_prefix = "VP_";
 $watermark_file = "pics/vp_logo.png";
 $file_name = null;
