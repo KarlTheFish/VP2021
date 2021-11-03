@@ -4,6 +4,7 @@ session_start();
 
 require_once("../../config.php");
 require_once("fnc_user.php");
+require("fnc_header.php");
 	$author_name = $_SESSION["user_name"];
 	
     if(!isset($_SESSION["user_id"])){

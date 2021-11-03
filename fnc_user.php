@@ -64,6 +64,12 @@ $database="if21_karlvask";
                 $_SESSION["user_id"] = $id_from_db;
                 $_SESSION["user_name"] = $firstname_from_db ." ". $lastname_from_db;
                 $state->close();
+                $state = $conn->prepare("SELECT bgcolor, txtcolor FROM vprg_userprofiles WHERE userid = ?");
+                $state->bind_param("i", $_SESSION["user_id"]);
+                $state->bind_result($_SESSION["bg_color"],$_SESSION["text_color"]);
+                $state->execute();
+                $state->fetch();
+                $state->close();
                 header("Location: home.php");
                 $state = $conn->prepare("SELECT id FROM vprg_userprofiles WHERE userid = ?");
                 $state->bind_param("i", $_SESSION["user_id"]);
@@ -110,10 +116,25 @@ $database="if21_karlvask";
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
         $conn->set_charset("utf8");
         $state = $conn->prepare("UPDATE vprg_userprofiles SET description = ?, bgcolor = ?, txtcolor = ? WHERE userid = ?");
-        $state->bind_param("isss", $userid, $userdesc, $bgcolor, $txtcolor);
-        $state->execute();
+        $state->bind_param("sssi", $userdesc, $bgcolor, $txtcolor, $userid);
+        if(!($state->execute())){
+            $notice = $state->error;
+            echo "Profiili viga!";
+        }
         $state->close();
         $conn->close();
+        return $notice;
+ }
+ 
+ function color($userid){
+        $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
+        $conn->set_charset("utf8");
+        $state = $conn->prepare("SELECT bgcolor, txtcolor FROM vprg_userprofiles WHERE userid = ?");
+        $state->bind_param("i", $_SESSION["user_id"]);
+        $state->bind_result($_SESSION["bg_color"],$_SESSION["text_color"]);
+        $state->execute();
+        $state->fetch();
+        $state->close();
  }
 
 ?>

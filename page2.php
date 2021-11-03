@@ -17,6 +17,8 @@ $photo_files = [];
 			} //if in_array
 		} //if isset lõppeb
 	} //foreach lõppes made by Rinde aitäh Rinde
+	
+require("fnc_header.php");
 
 //suvalise foto valimine
 
@@ -53,40 +55,7 @@ $photo_list_html = $ran_picture."<br>";
 ?>
 <!DOCTYPE html> <!-- Vajalik HTML osa alguses -->
 <html lang="et">
-<head> <!-- Veebilehe kohta käiv info, mida näha ei ole -->
-	<meta charset="utf-8"> <!-- meta kirjeldab andmeid; charset näitab, mis sümbolitabelit kasutatakse -->
-	<title><?php echo $author_name;?>i leht</title>
-	<style>
-		body {
-  				animation: 100000ms ease-in-out infinite color-change; 
-}
 
-@keyframes color-change {
-  0% {
-    background-color: black;
-	color: white;
-  }
-  25% {
-    background-color: gold;
-	color: black;
-  }
-  50% {
-    background-color: black;
-	color: white;
-  }
-  75% {
-    background-color: red;
-	color: black;
-  }
-  100% {
-    background-color: black;
-	color: white;
-  }
-}
-
-	</style>
-</head>
-<body><!-- Veebilehe nähtav sisu -->
 <?php
 $todays_opinion_html = null;
 $user_opinion = null;
