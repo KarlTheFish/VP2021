@@ -31,7 +31,7 @@ $database="if21_karlvask";
             $option = ["cost" => 12];
             $password_hash = password_hash($password, PASSWORD_BCRYPT, $option); //sulgudes (mida krüpteeritakse, krüpteerimise algoritm, kui palju süsteem näeb vaeva et krüpteerida(max 12)
             
-            $state->bind_param("sssiss", $firstname,$surname,$birth_date,$gender,$email,$password_hash);
+            $state->bind_param("ssssis", $firstname,$surname, $email ,$gender, $birth_date, $password_hash);
             if($state->execute()){
                 $notice = "Uus kasutaja edukalt loodud!";
             }
@@ -109,20 +109,9 @@ $database="if21_karlvask";
     $notice = null;
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
         $conn->set_charset("utf8");
-        $state= $conn->prepare("SELECT bgcolor, txtcolor FROM vprg_userprofiles WHERE userid = ?");
-        $state->bind_param("i", $userid);
-        $state->bind_result($bg_from_db, $txt_from_db);
+        $state = $conn->prepare("UPDATE vprg_userprofiles SET description = ?, bgcolor = ?, txtcolor = ? WHERE userid = ?");
+        $state->bind_param("isss", $userid, $userdesc, $bgcolor, $txtcolor);
         $state->execute();
-        if(!($state->fetch())){
-            $state->close();
-            $state = $conn->prepare("INSERT INTO vprg_userprofiles (userid, description, bgcolor, txtcolor) VALUES (?, ?, ?, ?) ");
-            $state->bind_param("is", $userid, $userdesc, $bgcolor, $txtcolor);
-            $state->execute();
-        }
-        else{
-            
-        }
-        
         $state->close();
         $conn->close();
  }

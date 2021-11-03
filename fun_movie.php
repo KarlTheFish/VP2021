@@ -155,7 +155,60 @@ function save_photo($image, $file_type, $target) {
 			$notice = "Foto salvestamisel tekkis viga";
 		}
 	}
+	$connection = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
+	echo $connection->error;
+	
+	$connection->set_charset("utf8");
+	
+	$state = $connection->prepare("INSERT INTO vprg_photos (userid, filename, alttext) VALUES (?, ?, ?)");
+	$state->bind_param("iss", $_SESSION["user_id"], $file_name, $alt_text);
+	if(!($state->execute())){
+        echo "Pildi salvestamisel tekkis viga!";
+        }
+	
+	$state->close();
+	$connection->close();
+	
 	return $notice;
+}
+
+function photo_resize($temp_image, $image_width, $image_height, $isMax, $isThumbnail){
+        global $image_width_limit;
+        global $image_height_limit;
+        global $watermark_file;
+        if($isThumbnail == false){
+            if(($image_width / $image_width_limit) > ($image_height / $image_height_limit)){
+            $image_size_ratio = $image_width / $image_width_limit;
+            }
+            else {
+                $image_size_ratio = $image_height / $image_height_limit;
+            }
+            $image_new_width = round($image_width / $image_size_ratio);
+            $image_new_height = round($image_height / $image_size_ratio);
+        }
+        elseif($isThumbnail == true){
+            $image_new_width = 100;
+            $image_new_height = 100;
+        }
+	
+	//uue väiksema pildiobjekti loomine
+	
+	$new_temp_image = imagecreatetruecolor($image_new_width, $image_new_height);
+	imagecopyresampled($new_temp_image, $temp_image, 0, 0, 0, 0, $image_new_width, $image_new_height, $image_width, $image_height);
+	
+	//vesimärgi lisamine
+	if($isThumbnail == false){
+        $watermark = imagecreatefrompng($watermark_file);
+        $watermark_width = imagesx($watermark);
+        $watermark_height = imagesy($watermark);
+        $watermarkX = $image_new_width - $watermark_width - 10;
+        $watermarkY = $image_new_height - $watermark_height - 10;
+        
+        imagecopy($new_temp_image, $watermark, $watermarkX, $watermarkY, 0, 0, $watermark_width, $watermark_height);
+	}
+	//salvestamine
+	
+	return $new_temp_image;
 }
 
 

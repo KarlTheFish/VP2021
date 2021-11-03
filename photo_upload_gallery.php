@@ -25,6 +25,7 @@ $image_height_limit = 400;
 
 
 if(isset($_POST["photo_submit"])){
+    $alt_text = $_POST["alt_input"];
 	$image_check = getimagesize($_FILES["photo"]["tmp_name"]);
 	 if($image_check !== false){
             if($image_check["mime"] == "image/jpeg"){
@@ -36,12 +37,13 @@ if(isset($_POST["photo_submit"])){
             if($image_check["mime"] == "image/gif"){
                 $file_type = "gif";
             }
+            
 		
 	$time_stamp = microtime(1) * 10000;
 	
 	$file_name = $file_name_prefix."_".$time_stamp.".".$file_type;
 	
-	//pildi suuruse muutmine
+	//pildi suuruse muutmine  
 	//image objekti ehk pikslikogumi loomine
 	
 	if($file_type == "jpg"){
@@ -59,34 +61,13 @@ if(isset($_POST["photo_submit"])){
 	$image_width = imagesx($temp_image);
 	$image_height = imagesy($temp_image);
 	
-	if(($image_width / $image_width_limit) > ($image_height / $image_height_limit)){
-		$image_size_ratio = $image_width / $image_width_limit;
-	}
-	else {
-		$image_size_ratio = $image_height / $image_height_limit;
-	}
-	
-	$image_new_width = round($image_width / $image_size_ratio);
-	$image_new_height = round($image_height / $image_size_ratio);
-	
-	//uue väiksema pildiobjekti loomine
-	
-	$new_temp_image = imagecreatetruecolor($image_new_width, $image_new_height);
-	imagecopyresampled($new_temp_image, $temp_image, 0, 0, 0, 0, $image_new_width, $image_new_height, $image_width, $image_height);
-	
-	//vesimärgi lisamine
-	
-	$watermark = imagecreatefrompng($watermark_file);
-	$watermark_width = imagesx($watermark);
-	$watermark_height = imagesy($watermark);
-	$watermarkX = $image_new_width - $watermark_width - 10;
-	$watermarkY = $image_new_height - $watermark_height - 10;
-	
-	imagecopy($new_temp_image, $watermark, $watermarkX, $watermarkY, 0, 0, $watermark_width, $watermark_height);
-	
-	//salvestamine
+	$new_temp_image = photo_resize($temp_image, $image_width, $image_height, false, false);
 	
 	$photo_store_notice = save_photo($new_temp_image, $file_type, $upload_photo_normal_dir . $file_name);
+	
+    $new_temp_image = photo_resize($temp_image, $image_width, $image_height, false, true);
+	
+	$photo_store_notice = save_photo($new_temp_image, $file_type, $upload_photo_thum_dir . $file_name);
 	
 	//kõrvaldame mälu vabastamiseks pikslikogumi
 	
