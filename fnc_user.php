@@ -79,9 +79,9 @@ $database="if21_karlvask";
                     $state->close();
                     $state = $conn->prepare("SELECT bgcolor, txtcolor FROM vprg_userprofiles WHERE userid = ?");
                     $state->bind_param("i", $_SESSION["user_id"]);
-                    $state->bind_result($bgcolor_from_db, $txtcolor_from_db);
+                    $state->bind_result($_SESSION["bg_color"],$_SESSION["text_color"]);
                     $state->execute();
-                    if((!isset($bgcolor_from_db)) or (!isset($txtcolor_from_db))){
+                    if((!isset($_SESSION["bg_color"])) or (!isset($_SESSION["text_color"]))){
                         $state->close();
                         $defbg = "ffffff";
                         $deftxt = "000000";

@@ -88,8 +88,6 @@ if(isset($_POST["submit_opinion"]))
 		<span><?php echo $todays_opinion_error; ?></span>
 	</form>
 	<?php echo $todays_opinion_html; ?>
-	<hr>
-	<p>See leht on loodud öppetöö raames ning ei sisalda tösiselt vöetavat sisu.</p>
-	<p>Öppetöö toimub <a href="https://www.tlu.ee/dt">Tallinna ülikooli digitehnoloogiate instituudis</a>.</p>
 </body>
+<?php require("fnc_footer.php"); ?>
 </html>

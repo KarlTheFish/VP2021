@@ -1,17 +1,10 @@
 <!-- PHP failis vöib olla ka HTML, kuid failil endal peab alati olema .php laiend -->
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
-session_start();
-	$author_name = $_SESSION["user_name"];
-	
-    if(!isset($_SESSION["user_id"])){
-	header("Location: page.php");
-    }
+require("fnc_header.php");
 $author_name = "Karl"; #PHP lause peab löppema semikooloniga
 
 require_once("../../config.php"); //PHP käsk, millega saab teisi PHP faile nöuda
 require_once("fun_films.php");
-
-echo "Test 2";
 
 $film_store_notice = null;
 
@@ -100,42 +93,6 @@ if(isset($_POST["film_submit"])){
 
 
 ?>
-<!DOCTYPE html> <!-- Vajalik HTML osa alguses -->
-<html lang="et">
-<head> <!-- Veebilehe kohta käiv info, mida näha ei ole -->
-	<meta charset="utf-8"> <!-- meta kirjeldab andmeid; charset näitab, mis sümbolitabelit kasutatakse -->
-	<title><?php echo $author_name;?>i leht</title>
-	<style>
-		body {
-				animation: 100000ms ease-in-out infinite color-change; 
-			}
-
-			@keyframes color-change {
-			  0% {
-				background-color: black;
-				color: white;
-			  }
-			  25% {
-				background-color: gold;
-				color: black;
-			  }
-			  50% {
-				background-color: black;
-				color: white;
-			  }
-			  75% {
-				background-color: red;
-				color: black;
-			  }
-			  100% {
-				background-color: black;
-				color: white;
-			  }
-			}
-
-	</style>
-</head>
-<body><!-- Veebilehe nähtav sisu -->
 
 	<h1><center><img src="banana.gif" alt="tantsiv banaan" width=100></img> <?php echo $author_name;?>i veebileht <img src="banana.gif" alt="tantsiv banaan" width=100></img></center></h1>
 	<h2><center>Eesti filmid</center></h2>
@@ -169,10 +126,5 @@ if(isset($_POST["film_submit"])){
     <span><?php echo $film_store_notice; ?></span>
 
 </body>
-<footer>
-	<hr>
-	<p>See leht on loodud öppetöö raames ning ei sisalda tösiselt vöetavat sisu.</p>
-	<p>Öppetöö toimub <a href="https://www.tlu.ee/dt">Tallinna ülikooli digitehnoloogiate instituudis</a>.</p>
-	<hr>
-</footer>
+<?php require("fnc_footer.php"); ?>
 </html>

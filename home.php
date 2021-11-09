@@ -1,8 +1,6 @@
 <?php
+require("fnc_header.php");
 
-session_start();
-	$author_name = $_SESSION["user_name"];
-	
     if(!isset($_SESSION["user_id"])){
 	header("Location: page.php");
     }
@@ -13,13 +11,6 @@ session_start();
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="et">
-<head>
-	<meta charset="utf-8">
-	<title><?php echo $author_name; ?>i leht</title>
-</head>
-<body>
 	<h1><?php echo $author_name; ?>i leht</h1>
 	<p>See leht on loodud õppetöö raames ja ei sisalda tõsiseltvõetavat sisu!</p>
 	<p>Õppetöö toimub <a href="https://www.tlu.ee/dt">Tallinna Ülikooli Digitehnoloogiate instituudis</a>.</p>
@@ -33,4 +24,6 @@ session_start();
 	<li><a href="photo_upload_gallery.php">Piltide galerii ja üleslaadimine</a>
 	<li><a href="fun_user_profile.php">Kasutajaprofiil</a></li>
 </body>
+
+<?php require("fnc_footer.php"); ?>
 </html>

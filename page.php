@@ -1,7 +1,5 @@
 <!-- PHP failis vöib olla ka HTML, kuid failil endal peab alati olema .php laiend -->
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
-
- session_start();
  
 require_once("../../config.php");
 require_once("fnc_general.php");
@@ -67,7 +65,6 @@ $notice = null;
 	<p><center><?php echo "Kell on ".$time_hours.":".$time_minutes.", on ". $time_cat.". Täna on ". $weekday_names_et[$weekday_now - 1].", ".$day_cat;?></center></p> <!-- PHPs on + asemel . -->
 	
 	<hr>
-	
 	<!-- sisselogimise vorm -->
 	
     <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -90,7 +87,6 @@ $notice = null;
 	<!-- Viimane galeriise lisatud avalik foto -->
 	<?php echo show_latest_public_photo() ;?>
 	
-	<p>See leht on loodud öppetöö raames ning ei sisalda tösiselt vöetavat sisu.</p>
-	<p>Öppetöö toimub <a href="https://www.tlu.ee/dt">Tallinna ülikooli digitehnoloogiate instituudis</a>.</p>
 </body>
+<?php require("fnc_footer.php"); ?>
 </html>

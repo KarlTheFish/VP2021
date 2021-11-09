@@ -1,12 +1,9 @@
 <!-- PHP failis vöib olla ka HTML, kuid failil endal peab alati olema .php laiend -->
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
-session_start();
-	$author_name = $_SESSION["user_name"];
-	
+    require("fnc_header.php");
     if(!isset($_SESSION["user_id"])){
 	header("Location: page.php");
     }
-    require("fnc_header.php");
 
 $author_name = "Karl"; #PHP lause peab löppema semikooloniga
 $film_html = null;
@@ -26,18 +23,6 @@ $film_html = films_from_database();
 
 ?>
 
-<form method="post"> 
-    <select name="test">
-        <option value="0">Test1</option>
-        <option value="1" selected>Test2</option>
-    </select>
-</form>
-
 </body>
-<footer>
-	<hr>
-	<p>See leht on loodud öppetöö raames ning ei sisalda tösiselt vöetavat sisu.</p>
-	<p>Öppetöö toimub <a href="https://www.tlu.ee/dt">Tallinna ülikooli digitehnoloogiate instituudis</a>.</p>
-	<hr>
-</footer>
+<?php require("fnc_footer.php"); ?>
 </html>
