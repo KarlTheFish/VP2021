@@ -73,7 +73,6 @@ if(isset($_POST["submit_opinion"]))
 	}
 }
 ?>
-	<h1><center><img src="banana.gif" alt="tantsiv banaan" width=100></img> <?php echo $author_name;?>i veebileht <img src="banana.gif" alt="tantsiv banaan" width=100></img></center></h1>
 	<h2><center>Graphic design is my passion</center></h2>
 	<form method="post">
 	<?php echo $photo_html."<br>";

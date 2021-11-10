@@ -7,6 +7,7 @@ if (isset($_SESSION["user_id"])){
     $links = '<p> <a href="page.php">Avalehele</a> | ';
     $links .= '<a href="home.php">Kasutaja</a> | ';
     $links .= '<a href="page3.php">Filmide list</a> | ';
+	$links .= '<a href="photo_upload_gallery.php">Fotode üleslaadimine</a> | ';
 }
 
 $links .= "</p>";

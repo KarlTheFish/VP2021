@@ -8,12 +8,11 @@ require("fnc_header.php");
     if(isset($_GET["logout"])){
 	session_destroy();
 	header("Location: page.php");
-}
+	}
 
 ?>
 	<h1><?php echo $author_name; ?>i leht</h1>
-	<p>See leht on loodud õppetöö raames ja ei sisalda tõsiseltvõetavat sisu!</p>
-	<p>Õppetöö toimub <a href="https://www.tlu.ee/dt">Tallinna Ülikooli Digitehnoloogiate instituudis</a>.</p>
+	
 	<hr>
     <p>Olemegi sisse loginud!</p>
     <p><a href="?logout=1">Logi välja</a></p>
