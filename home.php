@@ -1,20 +1,27 @@
 <?php
-require("fnc_header.php");
-
-    if(!isset($_SESSION["user_id"])){
-	header("Location: page.php");
-    }
-    
-    if(isset($_GET["logout"])){
-	session_destroy();
-	header("Location: page.php");
+	require_once("fnc_session.php");
+	setcookie("vpvisitor", $_SESSION["user_name"], time() + (86400 * 8), "/~karvas/vp2021/Ryhm-3/", "greeny.cs.tlu.ee", isset($_SERVER["HTTPS"]), true);
+	$last_visitor = null;
+	if(isset($_SESSION["user_id"])){
+		echo "Sessioon on";
 	}
-
+	else{
+		echo "Sessiooni pole";
+	}
+    if(isset($_COOKIE["vpvisitor"]) and !empty($_COOKIE["vpvisitor"])){
+        $last_visitor = $_COOKIE["vpvisitor"];
+    }
+	else{
+		$last_visitor = "Küpsiseid ei ole";
+	}
+	require("fnc_header.php");
 ?>
+
 	<h1><?php echo $author_name; ?>i leht</h1>
 	
 	<hr>
     <p>Olemegi sisse loginud!</p>
+	<?php echo $last_visitor; ?>
     <p><a href="?logout=1">Logi välja</a></p>
 	<hr>
 	<li><a href="page.php">Avalehele</a>

@@ -1,11 +1,9 @@
 <!-- PHP failis vöib olla ka HTML, kuid failil endal peab alati olema .php laiend -->
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
- 
+//require_once("fnc_session.php");
 require_once("../../config.php");
 require_once("fnc_general.php");
-require_once("fnc_user.php");
-require_once("fun_movie.php");
-require("fnc_header.php");
+require_once("fnc_header.php");
 
 
 $author_name = "Karl"; #PHP lause peab löppema semikooloniga
@@ -60,7 +58,6 @@ $notice = null;
 	<title><?php echo $author_name;?>i leht kell <?php echo $time_hours. ":". $time_minutes; ?></title>
 </head>
 <body><!-- Veebilehe nähtav sisu -->
-	<h1><center><img src="banana.gif" alt="tantsiv banaan" width=100></img> <?php echo $author_name;?>i veebileht <img src="banana.gif" alt="tantsiv banaan" width=100></img></center></h1>
 	<h2><center>Graphic design is my passion</center></h2>
 	<p><center><?php echo "Kell on ".$time_hours.":".$time_minutes.", on ". $time_cat.". Täna on ". $weekday_names_et[$weekday_now - 1].", ".$day_cat;?></center></p> <!-- PHPs on + asemel . -->
 	

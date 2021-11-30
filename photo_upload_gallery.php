@@ -1,5 +1,7 @@
 <!-- PHP failis vöib olla ka HTML, kuid failil endal peab alati olema .php laiend -->
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
+$javascript = '<script src="javascript/file_size_check.js" defer></script>';
+echo $javascript;
 require("fnc_header.php");
 require_once("fun_movie.php");
 require_once("Classes/Photoupload.class.php");
@@ -13,6 +15,7 @@ $privacy = 1;
 $photo_file_size_limit = 1024 * 1024;
 $image_width_limit = 600;
 $image_height_limit = 400;
+$notice = null;
 
 
 if(isset($_POST["photo_submit"])){
@@ -101,7 +104,8 @@ if(isset($_POST["photo_submit"])){
 		<input type="submit" name="photo_submit" id="photo_submit">
 	</form>
 	<br>
-	<span><?php echo $photo_store_notice ?></span>
+	<span><?php echo $photo_store_notice;
+    echo $notice; ?></span>
 </body>
 <?php require("fnc_footer.php") ?>
 </html>

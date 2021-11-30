@@ -1,11 +1,6 @@
 <?php
+require("fnc_header.php");
 require_once("fun_movie.php");
-session_start();
-	$author_name = $_SESSION["user_name"];
-	
-    if(!isset($_SESSION["user_id"])){
-	header("Location: page.php");
-    }
 	$css = '<link rel="stylesheet" type="text/css" href="style/gallery.css">';
 	if(isset($css) and !empty($css)){
 		echo $css;
@@ -16,6 +11,10 @@ $limit = 2;
 
 ?>
 <body class="body">
+
+
+<input id="rate1" name="rating">
+
 <div>
 	<p>
 	<?php
@@ -33,3 +32,4 @@ $limit = 2;
 	 echo read_public_photo_thumbs(2); ?>
 </div>
 </body>
+<?php require("fnc_footer.php"); ?>
