@@ -1,5 +1,5 @@
 <?php
-class SessionManager
+class sessionManager
 {
 	static function sessionStart($name, $limit = 0, $path = '/', $domain = null, $secure = null)
 	{

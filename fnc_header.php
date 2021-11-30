@@ -1,5 +1,5 @@
 <?php
-	require_once("fnc_session.php");
+	//require_once("fnc_session.php");
 	require_once("fun_movie.php");
 	require_once("fnc_user.php");
 	if (isset($_SESSION["user_id"])){

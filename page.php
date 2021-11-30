@@ -2,9 +2,10 @@
 <?php #andmeid hoitakse muutujates, aga ei pea ära määrama, mis tüüpi muutuja on. Muutuja nimi peab olema ingliskeelne, köikide muutujate nimed algavad $ märgiga, kasutatakse ainult väiketähti ja tühikute asemel on allkriips
 //require_once("fnc_session.php");
 require_once("../../config.php");
+require_once("Classes/sessionManager.class.php");
+sessionManager::sessionStart("vp", 0, "/~karvas/public_html/VP2021/", "greeny.cs.tlu.ee");
 require_once("fnc_general.php");
 require_once("fnc_header.php");
-
 
 $author_name = "Karl"; #PHP lause peab löppema semikooloniga
 $time_hours = date("H");

@@ -1,6 +1,6 @@
 <?php
 	require_once("fnc_session.php");
-	setcookie("vpvisitor", $_SESSION["user_name"], time() + (86400 * 8), "/~karvas/vp2021/Ryhm-3/", "greeny.cs.tlu.ee", isset($_SERVER["HTTPS"]), true);
+	//setcookie("vpvisitor", $_SESSION["user_name"], time() + (86400 * 8), "/~karvas/vp2021/Ryhm-3/", "greeny.cs.tlu.ee", isset($_SERVER["HTTPS"]), true);
 	$last_visitor = null;
 	if(isset($_SESSION["user_id"])){
 		echo "Sessioon on";
